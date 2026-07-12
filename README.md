@@ -100,14 +100,23 @@ merge, trust-weighting, and Byzantine aggregation for you.
 
 ---
 
-## Use it with your framework
+## Framework integrations — `pip install` and go
 
-Memora is a plain shared-memory backend, so it slots under the agent frameworks you already use.
-Copy-paste starters:
+Drop-in, **live-tested** packages for the frameworks you already use. Each one pulls in
+`memora-swarm` automatically — one command, everything installed:
 
-- [LangChain](examples/langchain_memory.py) — shared chat/scratchpad memory across a crew
-- [CrewAI](examples/crewai_backend.py) — a poison-resistant shared store for a crew
-- [Plain Python](examples/quickstart.py) — the 20-line version
+| Framework | Install | What you get |
+|---|---|---|
+| **LangChain** | `pip install memora-langchain` | `MemoraChatMessageHistory` — shared, poison-resistant chat history (drop-in for `RunnableWithMessageHistory`) |
+| **CrewAI** | `pip install memora-crewai` | `MemoraCrewMemory.tools()` — `remember_shared` / `recall_shared` + robust `crew_vote` / `crew_consensus` |
+| **Microsoft AutoGen** | `pip install memora-autogen` | `MemoraMemory` — the `autogen_core.memory.Memory` protocol, shared across a team |
+
+PyPI: [memora-langchain](https://pypi.org/project/memora-langchain/) ·
+[memora-crewai](https://pypi.org/project/memora-crewai/) ·
+[memora-autogen](https://pypi.org/project/memora-autogen/) ·
+source in [`integrations/`](integrations/).
+
+On a custom or unsupported framework? The [`examples/`](examples/) show the raw pattern to adapt.
 
 ---
 
