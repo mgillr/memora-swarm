@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Memora local state (never commit swarm logs)
+*.memora
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
