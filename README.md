@@ -2,9 +2,13 @@
 
 # Memora
 
-**Byzantine-fault-tolerant shared memory for AI agent swarms.**
-A drop-in replacement for Redis in multi-agent systems — where one prompt-injected agent
-**cannot** poison the shared state of the other 49.
+**The Cloudflare Zero Trust of agent state.**
+
+### Your security stack watches the network. Nothing watches what your agents tell each other.
+
+Memora is the missing layer — **Byzantine-fault-tolerant shared memory** where one compromised
+agent is **mathematically unable to fork** the state of the rest, and every write is **signed,
+attributable, and exactly replayable**.
 
 [![PyPI](https://img.shields.io/pypi/v/memora.svg)](https://pypi.org/project/memora/)
 [![Python](https://img.shields.io/pypi/pyversions/memora.svg)](https://pypi.org/project/memora/)
@@ -12,30 +16,36 @@ A drop-in replacement for Redis in multi-agent systems — where one prompt-inje
 
 [Website](https://memora.optitransfer.ch) · [Get a key](https://memora.optitransfer.ch/dashboard) · [Live monitor](https://memora.optitransfer.ch/monitor) · [Docs](docs/) · [Paper](paper/)
 
+**First 25,000 ops free on signup · exact Q16.16 integer math · ARM and x86 resolve to the identical bytes**
+
 </div>
 
 ---
 
-## The problem
+## The silent fork
 
-When many agents share one memory, that memory is your weakest link. A single agent that gets
-**prompt-injected**, goes rogue, or just malfunctions can write poison that every other agent
-then reads and trusts. Plain key-value stores (Redis, etc.) have no defense — last write wins,
-no matter who wrote it or whether it's a lie.
+Frameworks run dozens of agents over shared state in a dumb key-value store. AutoGen, CrewAI,
+LangGraph — they all point at Redis or Postgres. If one agent is prompt-injected and writes
+poisoned JSON or tensors, every other agent reads the poison and the swarm hallucinates. On a
+network partition, Redis forks silently and never tells you. There is **no mathematical guardrail
+for shared agent state.**
 
-## What Memora does
+**Memora is that guardrail.**
 
-Memora replaces that shared store with an engine that stays **correct under adversarial
-writers**. Three layers, one API:
+## Three layers · one full service
 
-| Layer | Guarantee |
+Every key gets all three — the whole engine, unlimited agents, no feature gates. The same math
+ships to our cloud and on-prem to you, unchanged.
+
+| Layer | What it does |
 |---|---|
-| **CRDT state** | Concurrent writes merge deterministically. The swarm never forks. No locks. |
-| **Trust-weighted aggregation** | Numeric contributions are combined by a robust mean that **down-weights** outliers instead of averaging them in. |
-| **Byzantine conviction (ACFA)** | An agent that tells different peers different things (equivocation) is **detected and evicted**. Up to *f* liars in a group of ≥ 2f+3 cannot move the agreed result. |
+| **L1 · OR-Set CRDT + delta-state** | Conflict-free JSON beliefs. Concurrent writes merge deterministically — the swarm **never forks**. No locks. |
+| **L2 · E4 trust-weighted mean** | Smoothly **down-weights** conflicting state by trust, so an outlier or poisoner can't drag the result. |
+| **L3 · ACFA Q16.16 multi-Krum + G-Set** | Byzantine-robust tensors; **equivocators are auto-banned**. Up to *f* liars in a group of ≥ 2f+3 cannot move the agreed result. |
 
 Every write is **signed** by a self-certifying node identity and appended to a **replayable**
-log — so any state is attributable and auditable after the fact.
+log — so any state is attributable and auditable after the fact. Runs in **exact Q16.16 integer
+arithmetic**, so ARM and x86 agents resolve to byte-identical roots.
 
 > You aren't paying for message delivery. You're paying for mathematical certainty that a single
 > compromised agent can't fork the swarm.
@@ -132,4 +142,4 @@ Apache-2.0 — see [LICENSE](LICENSE). Covers this documentation and the example
 Memora engine is delivered as a compiled wheel (`pip install memora`) and a hosted service; the
 examples here are yours to use, fork, and adapt freely.
 
-Made under the [optitransfer.ch](https://optitransfer.ch) umbrella.
+**memora** — a product of [optitransfer.ch](https://optitransfer.ch).
