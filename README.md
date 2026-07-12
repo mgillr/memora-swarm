@@ -114,7 +114,7 @@ Drop-in, **live-tested** packages for the frameworks you already use. Each one p
 PyPI: [memora-langchain](https://pypi.org/project/memora-langchain/) ·
 [memora-crewai](https://pypi.org/project/memora-crewai/) ·
 [memora-autogen](https://pypi.org/project/memora-autogen/) ·
-source in [`integrations/`](integrations/).
+source and getting started examples in [`integrations/`](integrations/).
 
 On a custom or unsupported framework? The [`examples/`](examples/) show the raw pattern to adapt.
 
