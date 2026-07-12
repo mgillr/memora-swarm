@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "memora-crewai"
+version = "0.1.0"
+description = "Poison-resistant, Byzantine-fault-tolerant shared memory + robust voting tools for CrewAI crews — one rogue agent can't corrupt what the crew remembers or how it votes."
+requires-python = ">=3.10,<3.14"
+license = { text = "Apache-2.0" }
+authors = [{ name = "mgillr" }]
+readme = "README.md"
+keywords = ["crewai", "ai-agents", "multi-agent", "memory", "tools", "crdt", "byzantine", "shared-memory", "agent-security"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Libraries",
+  "License :: OSI Approved :: Apache Software License",
+]
+dependencies = [
+  "memora-swarm>=0.1.0",
+  "crewai>=0.70",
+]
+
+[project.urls]
+Homepage = "https://memora.optitransfer.ch"
+Documentation = "https://memora.optitransfer.ch/docs"
+Repository = "https://github.com/mgillr/memora-swarm"
+
+[tool.hatch.build.targets.wheel]
+packages = ["memora_crewai"]
