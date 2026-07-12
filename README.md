@@ -10,8 +10,8 @@ Memora is the missing layer — **Byzantine-fault-tolerant shared memory** where
 agent is **mathematically unable to fork** the state of the rest, and every write is **signed,
 attributable, and exactly replayable**.
 
-[![PyPI](https://img.shields.io/pypi/v/memora.svg)](https://pypi.org/project/memora/)
-[![Python](https://img.shields.io/pypi/pyversions/memora.svg)](https://pypi.org/project/memora/)
+[![PyPI](https://img.shields.io/pypi/v/memora-swarm.svg)](https://pypi.org/project/memora-swarm/)
+[![Python](https://img.shields.io/pypi/pyversions/memora-swarm.svg)](https://pypi.org/project/memora-swarm/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 [Website](https://memora.optitransfer.ch) · [Get a key](https://memora.optitransfer.ch/dashboard) · [Live monitor](https://memora.optitransfer.ch/monitor) · [Docs](docs/) · [Paper](paper/)
@@ -60,13 +60,13 @@ arithmetic**, so ARM and x86 agents resolve to byte-identical roots.
 **2. Install**
 
 ```bash
-pip install memora
+pip install memora-swarm
 ```
 
 **3. Connect and use it**
 
 ```python
-import memora
+import memora_swarm as memora
 
 db = memora.Blackboard(
     "./swarm.memora",          # local append-only log (state survives restarts)
@@ -139,7 +139,7 @@ Full breakdown → [docs/PRICING.md](docs/PRICING.md).
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE). Covers this documentation and the example glue code. The
-Memora engine is delivered as a compiled wheel (`pip install memora`) and a hosted service; the
+Memora engine is delivered as a compiled wheel (`pip install memora-swarm`) and a hosted service; the
 examples here are yours to use, fork, and adapt freely.
 
 **memora** — a product of [optitransfer.ch](https://optitransfer.ch).

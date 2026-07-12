@@ -1,7 +1,7 @@
 """
 Memora quickstart — a poison-resistant shared memory in ~25 lines.
 
-    pip install memora
+    pip install memora-swarm
 
 Get a free key at https://memora.optitransfer.ch/dashboard, then:
 
@@ -11,7 +11,7 @@ Get a free key at https://memora.optitransfer.ch/dashboard, then:
 
 import os
 import time
-import memora
+import memora_swarm as memora
 
 db = memora.Blackboard(
     "./swarm.memora",                 # path to a local append-only log (survives restarts)

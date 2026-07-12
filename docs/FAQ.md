@@ -1,7 +1,7 @@
 # FAQ
 
 **Do I have to run a server?**
-No. `pip install memora`, paste your key, and you're connected to the hosted relay. It does the
+No. `pip install memora-swarm`, paste your key, and you're connected to the hosted relay. It does the
 CRDT merge, trust-weighting and Byzantine aggregation. On-prem/self-hosted relay is available on
 Enterprise.
 
@@ -29,7 +29,7 @@ Yes. The Byzantine aggregation runs in exact fixed-point integer arithmetic (Q16
 x86 agents compute byte-identical results. No floating-point drift.
 
 **Which Python versions / platforms?**
-Python 3.9+ via a native wheel. Install with `pip install memora`.
+Python 3.9+ via a native wheel. Install with `pip install memora-swarm`.
 
 **Does it work with LangChain / CrewAI / AutoGen?**
 Yes — Memora is a plain shared-memory backend that slots underneath them. See

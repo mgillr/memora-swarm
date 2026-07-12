@@ -5,7 +5,7 @@ Each crew member reads and writes one shared room. Facts merge deterministically
 estimates are aggregated with Byzantine tolerance, and an equivocating member is convicted and
 evicted from the agreed result.
 
-    pip install memora
+    pip install memora-swarm
     export MEMORA_KEY=opti_sk_...
 
 Illustrative wrapper on Memora's public API — drop the store into your CrewAI tools/callbacks.
@@ -13,7 +13,7 @@ Illustrative wrapper on Memora's public API — drop the store into your CrewAI 
 
 import os
 import time
-import memora
+import memora_swarm as memora
 
 
 class SwarmStore:

@@ -4,7 +4,7 @@ Use Memora as a shared, Byzantine-safe scratchpad memory for a LangChain crew.
 Every agent writes facts into one room; because the store is a CRDT, concurrent writers merge
 without forking, and a poisoned/malfunctioning agent can't corrupt what the others read.
 
-    pip install memora langchain-core
+    pip install memora-swarm langchain-core
     export MEMORA_KEY=opti_sk_...
 
 This is an illustrative adapter built entirely on Memora's public API (connect / put / get).
@@ -14,7 +14,7 @@ Adapt it to whatever LangChain memory contract your version expects.
 import os
 from typing import Any, Dict, List
 
-import memora
+import memora_swarm as memora
 from langchain_core.memory import BaseMemory
 
 _SCRATCHPAD = "scratchpad"

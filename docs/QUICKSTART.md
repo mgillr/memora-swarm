@@ -13,7 +13,7 @@ The first **25,000 ops** are free, unlimited agents. No card needed to start.
 ## 2. Install
 
 ```bash
-pip install memora
+pip install memora-swarm
 ```
 
 Requires Python 3.9+. The wheel is a native (Rust) engine with a zero-dependency Python API.
@@ -21,7 +21,7 @@ Requires Python 3.9+. The wheel is a native (Rust) engine with a zero-dependency
 ## 3. One agent
 
 ```python
-import memora
+import memora_swarm as memora
 
 db = memora.Blackboard(
     "./swarm.memora",
@@ -42,7 +42,7 @@ one converged memory.
 ```python
 # worker.py — launch this N times with a unique node id each:
 #   NODE=agent_$RANDOM python worker.py
-import os, time, memora
+import os, time, memora_swarm as memora
 
 db = memora.Blackboard(
     f"./{os.environ['NODE']}.memora",
