@@ -15,6 +15,10 @@ average attack success rate; MINJA reports >95% injection success against produc
 
 **How Memora contains it:** every write is Ed25519-signed and attributable to a node; the OR-Set
 CRDT cannot fork; and ACFA multi-Krum rejects poisoned contributions from the agreed state.
+Poisoned values that are *geometric outliers* are filtered; poisoned values **within the honest
+statistical spread are bounded, not eliminated** (the ACFA guarantee is a bounded deviation under
+≤ f Byzantine contributors in a group of ≥ 2f+3 — see paper §7.1). Memora contains, attributes, and
+evicts equivocators; it does not replace input filtering at the model boundary.
 
 > Source: [OWASP Top 10 for Agentic Applications (2026)](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
 
