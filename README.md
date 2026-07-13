@@ -151,4 +151,4 @@ Apache-2.0 — see [LICENSE](LICENSE). Covers this documentation and the example
 Memora engine is delivered as a compiled wheel (`pip install memora-swarm`) and a hosted service; the
 examples here are yours to use, fork, and adapt freely.
 
-**memora** — a product of [optitransfer.ch](https://optitransfer.ch).
+**memora-swarm** — a product of [optitransfer.ch](https://optitransfer.ch).
