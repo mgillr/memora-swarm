@@ -73,4 +73,4 @@ Memora is strong, not magic. What it guarantees and where the edge is:
 ## Further reading
 
 - [Threat model](THREATS.md) — the concrete attacks this defends against, with sources.
-- [Paper](../paper/) — the ACFA research behind L3.
+- [Paper — arXiv:2607.10305](https://arxiv.org/abs/2607.10305) — the ACFA research behind L3.

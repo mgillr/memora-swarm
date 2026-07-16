@@ -13,8 +13,9 @@ attributable, and exactly replayable**.
 [![PyPI](https://img.shields.io/pypi/v/memora-swarm.svg)](https://pypi.org/project/memora-swarm/)
 [![Python](https://img.shields.io/pypi/pyversions/memora-swarm.svg)](https://pypi.org/project/memora-swarm/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![arXiv](https://img.shields.io/badge/arXiv-2607.10305-b31b1b.svg)](https://arxiv.org/abs/2607.10305)
 
-[Website](https://memora.optitransfer.ch) · [Get a key](https://memora.optitransfer.ch/dashboard) · [Live monitor](https://memora.optitransfer.ch/monitor) · [Docs](docs/) · [Paper](paper/)
+[Website](https://memora.optitransfer.ch) · [Get a key](https://memora.optitransfer.ch/dashboard) · [Live monitor](https://memora.optitransfer.ch/monitor) · [Docs](docs/) · [Paper (arXiv:2607.10305)](https://arxiv.org/abs/2607.10305)
 
 **First 25,000 ops free on signup · exact Q16.16 integer math · ARM and x86 resolve to the identical bytes**
 
@@ -140,7 +141,7 @@ Full breakdown → [docs/PRICING.md](docs/PRICING.md).
 - **[Quickstart](docs/QUICKSTART.md)** — the step-by-step, including scaling to many agents.
 - **[Threat model](docs/THREATS.md)** — the attacks Memora is built to survive (OWASP Agentic
   Security, Morris-II self-replicating prompt worms, and more), with sources.
-- **[Paper](paper/)** — the ACFA coordinator-free Byzantine aggregation research.
+- **[Paper — arXiv:2607.10305](https://arxiv.org/abs/2607.10305)** — the ACFA coordinator-free Byzantine aggregation research (DOI [10.48550/arXiv.2607.10305](https://doi.org/10.48550/arXiv.2607.10305)).
 - **[FAQ](docs/FAQ.md)**
 
 ---
