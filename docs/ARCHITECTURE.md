@@ -10,7 +10,7 @@ explains *how*, conceptually — no internal source, just the model you need to 
    your agents                         hosted relay
  ┌────────────┐   signed, delta-      ┌───────────────────────────┐
  │  agent_1   │──── encoded writes ──▶│  L1  CRDT merge           │
- │  agent_2   │◀─── merged state ─────│  L2  trust-weighted mean  │
+ │  agent_2   │◀─── merged state ─────│  L2  epistemic layer      │
  │    ...     │                       │  L3  Byzantine conviction │
  │  agent_50  │                       └───────────────────────────┘
  └────────────┘                                │
@@ -35,12 +35,27 @@ encoding). Two agents writing at the same time produce a result that both conver
 deterministically, with no coordinator and no locks. Merging is commutative and idempotent, so
 retries and out-of-order delivery are safe. The swarm **cannot** split-brain.
 
-## L2 — Trust-weighted aggregation (outliers down-weighted)
+## L2 — Epistemic layer (*is this value believable now?*)
 
-For numeric contributions (`submit_tensor`), a plain average is fragile: one agent submitting
-`[9999, ...]` drags the mean. Memora instead computes a **robust, trust-weighted mean** — each
-contribution is weighted by how consistent it is with the rest, so a poisoner is *down-weighted*
-rather than folded in. Honest agents dominate the result.
+Robust aggregation starts here — a plain average is fragile (one agent submitting `[9999, ...]`
+drags the mean), so contributions are combined by a **trust-weighted mean** that down-weights
+outliers instead of folding them in. But down-weighting is only the floor. The epistemic layer's
+real job is to decide whether the value you're about to serve is **current, un-drifted, and
+un-poisoned** — because *consensus is not the same as truth*:
+
+- **Drift detection** — a bank of deterministic channels (mean, shape, variance, temporal,
+  reference/CUSUM, spatial-spectral, cross-replica) flags a value that has shifted beyond the
+  admitted-poison envelope, even when every agent agrees.
+- **Derived-fact self-repair** — a value computed from premises is re-checked against them; a clean
+  mismatch auto-repairs, a contested/stale premise raises a conflict instead of propagating.
+- **Human-in-the-loop escalation** — anything the layer can't self-certify becomes a queryable,
+  closeable event (`resolve_checked` → `pending_escalations()` → `ground_escalation()`), surfaced on
+  the live dashboard with a one-click *Ground*.
+- **Memory + resume** — confirmed precedents and clean-state checkpoints let a swarm resume without
+  re-inheriting drift.
+
+The rule that ties it together: **agreement never promotes to authority — only external
+re-verification does.** Full detail in [EPISTEMIC.md](EPISTEMIC.md).
 
 ## L3 — Byzantine conviction (ACFA)
 

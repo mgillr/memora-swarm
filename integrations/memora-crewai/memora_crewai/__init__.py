@@ -14,6 +14,8 @@ silently corrupt what the crew reads.
 """
 from __future__ import annotations
 
+import json
+
 from typing import Any, List, Optional, Type
 
 from pydantic import BaseModel, Field
@@ -62,7 +64,10 @@ class MemoraRememberTool(BaseTool):
     db: Any = None
 
     def _run(self, key: str, value: str) -> str:
-        self.db.put(key, value)
+        # JSON-encode the value (consistent with the langchain/autogen adapters): this escapes
+        # NUL and other control bytes so a fact containing one is stored, not rejected fail-closed
+        # by the client's WS5 separator sanitization.
+        self.db.put(key, json.dumps(value))
         return f"remembered '{key}'"
 
 
@@ -73,8 +78,13 @@ class MemoraRecallTool(BaseTool):
     db: Any = None
 
     def _run(self, key: str) -> str:
-        values = self.db.get(key)
-        return "; ".join(values) if values else f"(nothing stored under '{key}')"
+        decoded = []
+        for raw in self.db.get(key):
+            try:
+                decoded.append(str(json.loads(raw)))
+            except (ValueError, TypeError):
+                decoded.append(raw)  # back-compat: values stored raw before JSON-encoding
+        return "; ".join(decoded) if decoded else f"(nothing stored under '{key}')"
 
 
 class MemoraVoteTool(BaseTool):
@@ -93,11 +103,34 @@ class MemoraVoteTool(BaseTool):
 
 class MemoraConsensusTool(BaseTool):
     name: str = "crew_consensus"
-    description: str = "Resolve the crew's Byzantine-robust consensus on a numeric estimate, with any equivocators evicted."
+    description: str = (
+        "Resolve the crew's Byzantine-robust consensus on a numeric estimate, with any equivocators "
+        "evicted AND an epistemic verdict: whether the consensus is authoritative or drifted/poisoned "
+        "and needs human grounding."
+    )
     args_schema: Type[BaseModel] = _ConsensusArgs
     db: Any = None
 
     def _run(self, name: str) -> str:
+        # L2 epistemic read: the Byzantine-clean aggregate PLUS the drift verdict + escalation. Falls
+        # back to plain resolve() on an older client wheel (back-compat).
+        if hasattr(self.db, "resolve_checked"):
+            import json as _json
+            vector, _root, convicted, drift_json, authoritative = self.db.resolve_checked(name, round=1, f=1)
+            val = vector[0] if vector else None
+            status = "AUTHORITATIVE" if authoritative else "NOT authoritative — treat as provisional"
+            note = ""
+            if drift_json:
+                d = _json.loads(drift_json)
+                esc = d.get("escalation")
+                if esc:
+                    note = f"; ESCALATED to human ({esc['reason']})"
+                elif d.get("drift", {}).get("is_drift"):
+                    note = "; drift detected"
+            return f"consensus on '{name}' = {val} [{status}]{note} (evicted node ids: {convicted})"
+        # BACK-COMPAT CAVEAT: the old-wheel resolve(round, f) is NOT name-scoped — it resolves
+        # the whole round, so a crew on an outdated client wheel could read a different key's
+        # consensus. Upgrade the wheel to get the name-scoped resolve_checked path above.
         vector, _root, convicted = self.db.resolve(round=1, f=1)
         val = vector[0] if vector else None
         return f"consensus on '{name}' = {val} (evicted node ids: {convicted})"
