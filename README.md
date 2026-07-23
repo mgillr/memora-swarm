@@ -108,7 +108,7 @@ Memora secures **any stateful payload** — FL model updates, drone telemetry, L
 
 ## Sandbox & deployment
 
-- **Hosted sandbox** — a free validation quota (25,000 semantic ops on signup; unlimited nodes, the full
+- **Hosted sandbox** — a free validation quota (50,000 semantic ops on signup; unlimited nodes, the full
   three-layer engine) to test consensus, partition recovery, and Byzantine conviction against the live relay.
   A semantic op is a `put()` or a `submit_tensor()`; keepalive, sync, gossip and reads are never metered.
 - **On-prem / air-gapped** — the native `memora-core` engine deploys on your own infrastructure for
