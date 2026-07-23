@@ -119,8 +119,7 @@ Memora secures **any stateful payload** — FL model updates, drone telemetry, L
 
 - **Papers:** ACFA — coordinator-free Byzantine aggregation ([arXiv:2607.10305](https://arxiv.org/abs/2607.10305)); CRDT-Merge two-layer architecture ([arXiv:2605.19373](https://arxiv.org/abs/2605.19373)). See [`paper/`](paper/).
 - **Patents:** the underlying trust and merge constructions are the subject of **UK patent applications
-  GB2607132.4 (CRDT-Merge) and GB2608127.3 (E4 trust-as-data); further filings pending.** The ACFA
-  construction is described in the public paper and is not itself covered by these applications.
+  GB2607132.4 (CRDT-Merge) and GB2608127.3 (E4 trust-as-data); further filings pending.**
 
 ## License
 
